@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities{
+    .bg-main{
+        @apply bg-slate-950
+    }
+    .bg-primary{
+        @apply bg-slate-800
+    }
+    .bg-secondary{
+        @apply bg-slate-700
+    }
+    .vio-primary{
+        @apply bg-violet-700
+    }
+    .vio-secondary{
+        @apply bg-violet-600
+    }
+    .vio-text{
+        @apply text-violet-700
+    }
+    .btn-primary{
+        @apply vio-primary px-4 py-2 rounded-full m-2
+    }
+    .btn-secondary{
+        @apply bg-white vio-text px-4 py-2 rounded-full m-2
+    }
+    .input{
+        @apply py-3 px-5 bg-transparent outline-none border-2 border-slate-600 w-full mb-4
+    }
+}
+
+html,
+body,
+:root{
+    @apply h-full w-full;
+}
+body{
+    @apply bg-main text-slate-100
+}
