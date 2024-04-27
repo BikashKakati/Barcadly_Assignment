@@ -31,6 +31,14 @@
     .input{
         @apply py-3 px-5 bg-transparent outline-none border-2 border-slate-600 w-full mb-4
     }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+  
+      .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
 }
 
 html,
