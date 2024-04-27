@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dragTask, updateCards } from '../redux/boardSlice';
-import Task from './Task';
 import { toast } from 'react-toastify';
+import { updateCards } from '../redux/boardSlice';
+import CardDropHelper from './CardDropHelper';
+import Task from './Task';
 
 const Card = ({ name, tasks, id, idx }) => {
 
@@ -43,12 +44,13 @@ const Card = ({ name, tasks, id, idx }) => {
       setCardEditMode(false);
     }
   }
-  function handleOnDrop() {
-    dispatch(dragTask({ currentCardIdx: idx }));
-  }
+
+
 
   return (
-    <div className='w-[22rem] min-h-[30rem] flex-shrink-0' onDrop={handleOnDrop} onDragOver={(e) => { e.preventDefault() }}>
+    <div
+      className='w-[22rem] min-h-[30rem] flex-shrink-0'
+      onDragOver={(e) => { e.preventDefault() }} >
       <div className="bg-primary w-full px-3 py-4 flex justify-between items-center">
         {
           cardEditMode ?
@@ -63,14 +65,15 @@ const Card = ({ name, tasks, id, idx }) => {
           <button className='btn-secondary' onClick={handleCardDelete}>Delete</button>
         </div>
       </div>
-      <div className="">
+      <div className="w-full">
         {
           tasks?.map((task, index) => {
             return (
-              <Task key={task.timeStamp} {...task} status={name} taskIdx={index} />
+              <Task key={task.timeStamp} {...task} status={name} cardIdx={idx} taskIdx={index} />
             )
           })
         }
+        <CardDropHelper cardIdx={idx} taskIdx={tasks.length} />
       </div>
     </div>
   )

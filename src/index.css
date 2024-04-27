@@ -3,49 +3,71 @@
 @tailwind utilities;
 
 
-@layer utilities{
-    .bg-main{
+@layer utilities {
+    .bg-main {
         @apply bg-slate-950
     }
-    .bg-primary{
+
+    .bg-primary {
         @apply bg-slate-800
     }
-    .bg-secondary{
+
+    .bg-secondary {
         @apply bg-slate-700
     }
-    .vio-primary{
+
+    .vio-primary {
         @apply bg-violet-700
     }
-    .vio-secondary{
+
+    .vio-secondary {
         @apply bg-violet-600
     }
-    .vio-text{
+
+    .vio-text {
         @apply text-violet-700
     }
-    .btn-primary{
+
+    .btn-primary {
         @apply vio-primary px-4 py-2 rounded-full m-2
     }
-    .btn-secondary{
+
+    .btn-secondary {
         @apply bg-white vio-text px-4 py-2 rounded-full m-2
     }
-    .input{
+
+    .input {
         @apply py-3 px-5 bg-transparent outline-none border-2 border-slate-600 w-full mb-4
     }
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-  
-      .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
+    .rotate {
+        transform: rotateX(180deg);
+    }
+
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        background-color: #555;
+    }
 }
 
 html,
 body,
-:root{
+:root {
     @apply h-full w-full;
 }
-body{
-    @apply bg-main text-slate-100
+
+body {
+    @apply bg-main text-slate-100 custom-scrollbar
 }

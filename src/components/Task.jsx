@@ -1,42 +1,47 @@
 import dayjs from 'dayjs';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDragTaskDetails, deleteTask, editTask } from '../redux/boardSlice';
+import { addDragTaskDetails, deleteTask, dragTask, editTask } from '../redux/boardSlice';
 import Model from './Model';
 import { toast } from 'react-toastify';
 
-const Task = ({ title, timeStamp, status, taskIdx }) => {
+const Task = ({ title, timeStamp, status, taskIdx,cardIdx }) => {
 
   const [editTaskMode, setEditTaskMode] = useState(false);
   const statusRef = useRef();
   const { cards } = useSelector((state) => state.board);
   const [editedTaskTitle, setEditedTaskTitle] = useState(title);
   const dispatch = useDispatch();
-  const prevCardIdx = cards.findIndex((card)=> card.name === status);
+  const prevCardIdx = cards.findIndex((card) => card.name === status);
 
   function handleEditTask(e) {
     e.preventDefault();
-    dispatch(editTask({ 
-      editedTaskTitle, prevStatus: status, newStatus: statusRef.current.value, taskIdx 
+    dispatch(editTask({
+      editedTaskTitle, prevStatus: status, newStatus: statusRef.current.value, taskIdx
     }));
     setEditTaskMode(false);
   }
-  function handleOnDrag(e){
-    dispatch(addDragTaskDetails({taskIdx, prevCardIdx}))
+  function handleOnDrag() {
+    dispatch(addDragTaskDetails({ taskIdx, prevCardIdx }))
   }
 
-  function handleTaskDelete(){
-    dispatch(deleteTask({status,taskIdx}));
+  function handleTaskDelete() {
+    dispatch(deleteTask({ status, taskIdx }));
     setEditTaskMode(false);
-    toast("Task Deleted Successfully",{
-      type:"success",
-  })
+    toast("Task Deleted Successfully", {
+      type: "success",
+    })
+  }
+
+  function handleOnDrop() {
+    dispatch(dragTask({ currentCardIdx:cardIdx, droppedPosition:taskIdx }));
   }
 
 
   return (
     <>
-      <div className='w-full min-h-[5rem] bg-secondary py-4 px-2 mt-3' onClick={() => { setEditTaskMode(true) }} draggable onDragStart={handleOnDrag}>
+      <div className='w-full min-h-[5rem] bg-secondary py-4 px-2 mt-2' onClick={() => { setEditTaskMode(true) }} draggable onDragStart={handleOnDrag} onDrop={handleOnDrop}
+      >
         <p className='text-base font-medium mb-3'>{title}</p>
         <p className='text-xs text-slate-300'>
           {dayjs(timeStamp).format("YYYY-MMM-DD")}
@@ -62,7 +67,7 @@ const Task = ({ title, timeStamp, status, taskIdx }) => {
                 })
               }
             </select>
-            <input type='submit' value="Add Task" className='btn-primary cursor-pointer' />
+            <input type='submit' value="Edit Task" className='btn-primary cursor-pointer' />
             <button type='button' className='btn-secondary' onClick={() => { setEditTaskMode(false) }}>Cancel</button>
             <button type='button' className='btn-primary' onClick={handleTaskDelete}>Delete</button>
           </form>
