@@ -28,7 +28,7 @@ const App = () => {
         theme="dark"
         transition={Bounce}
       />
-      <main className='overflow-x-auto h-full'>
+      <main className='overflow-x-auto min-h-dvh'>
         {/* navbar */}
         {/* home */}
         <Home />
