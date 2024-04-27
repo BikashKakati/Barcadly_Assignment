@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNewTask } from '../redux/boardSlice';
 import { toast } from 'react-toastify';
 
-const AddTaskModel = ({setOpenModel }) => {
-  const {cards} = useSelector((state) => state.board);
+const AddTaskModel = ({ setOpenModel }) => {
+  const { cards } = useSelector((state) => state.board);
   const taskRef = useRef();
   const statusRef = useRef();
   const dispatch = useDispatch();
@@ -14,25 +14,28 @@ const AddTaskModel = ({setOpenModel }) => {
     e.preventDefault();
     const task = taskRef.current.value;
     const status = statusRef.current.value;
-    if(!task){
-      toast("Task name required",{
-        type:"warning",
-    })
+    if (!task) {
+      toast("Task name required", {
+        type: "warning",
+      })
       return;
     }
-    dispatch(addNewTask({task,status}));
+    dispatch(addNewTask({ task, status }));
     setOpenModel(prev => !prev);
+    toast("Task Added Successfully", {
+      type: "success",
+    })
   }
   return (
     <Model>
       <h4 className='text-slate-200 text-2xl text-center'>Add Task</h4>
       <form className="mt-4 w-full" onSubmit={handleAddTask}>
         <label htmlFor='name'>Task</label>
-        <input type='text' placeholder='task' id='name' className='input' ref={taskRef}/>
+        <input type='text' placeholder='task' id='name' className='input' ref={taskRef} />
         <label id='status'>Select Status</label>
         <select id='status' className='input *:text-black' ref={statusRef}>
           {
-            cards.map((card)=>{
+            cards.map((card) => {
               return (
                 <option key={card.id} value={card.name}>{card.name}</option>
               )
