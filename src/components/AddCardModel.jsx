@@ -14,8 +14,8 @@ const AddCardModel = ({ setOpenModel }) => {
         e.preventDefault();
         const cardName = cardRef.current.value;
         const isExist = cards.some((card) => card.name.toLowerCase() === cardName.toLowerCase());
-        if(isExist){
-            toast("Cardname already exit",{
+        if(isExist || !cardName){
+            toast("Cardname already exit or invalid",{
                 type:"warning",
             })
             return;
